@@ -1,0 +1,18 @@
+-- DELETANDO DADOS NA TABELA CLIENTE
+
+DELETE FROM cliente WHERE codigo = 1;
+
+-- DELETANDO DADOS NA TABELA COMPRA
+
+DELETE FROM compra WHERE codigo = 5;
+DELETE FROM compra WHERE data_compra = '2019-05-01';
+
+-- DELETANDO DADOS NA TABELA PRODUTO
+
+DELETE FROM produto WHERE codigo = 7;
+
+-- DELETANDO DADOS NA TABELA REGISTRO_COMPRA
+
+DELETE FROM registro_compra WHERE codigo = 3;
+DELETE FROM registro_compra WHERE quantidade > 3;
+DELETE FROM registro_compra WHERE desconto > 6;

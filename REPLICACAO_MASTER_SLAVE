@@ -1,0 +1,59 @@
+//Replicação de banco de dados - Master e Slave
+
+
+/* FAZER NO MASTER */
+
+1. Configurar o IP do servidor Master
+
+2. Editar o my.cnf
+nano /etc/mysql/my.cnf
+
+bind-address = IP_SERVIDOR_MASTER
+server-id = 1
+remover comentário do log_bin
+remover comentário bin_log_db = mysql (não será feito backup desse banco)
+
+3. Restartar o MySQL
+
+4. Criar a conta de usuário nos dois servidores 
+
+GRANT REPLICATION SLAVE ON *.*
+	TO 'replica'@'%' IDENTIFIED BY '12345';
+
+5. Pegar os dados de LOG MASTER no MySQL
+
+SHOW MASTER STATUS
+-----------------------------------------------
+
+/* FAZER NO SLAVE */
+
+1. Configurar o IP do servidor Slave
+
+2. Editar o my.cnf
+nano /etc/mysql/my.cnf
+
+bind-address = IP_SERVIDOR_SLAVE
+server-id = 2
+
+3. Criar a conta de usuário nos dois servidores (Master e Slave)
+
+GRANT REPLICATION SLAVE ON *.*
+	TO 'replica'@'%' IDENTIFIED BY '12345';
+
+4. Parar o servidor SLAVE no MySQL
+stop slave
+
+5. Modificar o log do Master no SLAVE
+
+CHANGE MASTER TO MASTER_HOST='IP_SERVIDOR_MASTER',
+    MASTER_USER='replica',
+    MASTER_PASSWORD='12345',
+    MASTER_LOG_FILE='mysql-bin.000002',
+    MASTER_LOG_POS=107;
+
+
+6. Iniciar o servidor slave no MySQL
+start slave
+
+7. Verificando status do slave
+SHOW SLAVE STATUS\G;

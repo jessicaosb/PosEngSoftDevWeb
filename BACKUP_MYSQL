@@ -1,0 +1,9 @@
+mysqldump -u root -p --opt --routines --triggers --add-drop-database --default-character-set=utf8 -B pdv > pdv.bkp.sql
+
+
+
+
+
+//Para exportar VIEWs e TRIGGERs
+
+--routines --triggers
